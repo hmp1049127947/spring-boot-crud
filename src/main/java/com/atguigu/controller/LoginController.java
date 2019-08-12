@@ -14,6 +14,10 @@ import javax.servlet.http.HttpSession;
 @Controller
 public class LoginController {
 
+    @GetMapping(value = {"/login","/","index"})
+    public String login(){
+        return "login";
+    }
 
     @PostMapping(value = "/login")
     public String login(@RequestParam(value = "username")String username,
@@ -28,5 +32,11 @@ public class LoginController {
             model.addAttribute("msg", "账户或密码错误");
             return "login";
         }
+    }
+
+    @GetMapping("/signout")
+    public String signout(HttpSession session) {
+        session.invalidate();
+        return "login";
     }
 }
