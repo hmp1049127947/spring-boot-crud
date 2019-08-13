@@ -2,6 +2,7 @@ package com.atguigu.config;
 
 import com.atguigu.component.LoginHandlerInterceptor;
 import com.atguigu.component.MyLocaleResolver;
+import com.atguigu.component.PermissionInterceptor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.LocaleResolver;
@@ -31,10 +32,11 @@ public class MyMvcConfig implements WebMvcConfigurer{
             //拦截器配置Begin
             @Override
             public void addInterceptors(InterceptorRegistry registry) {
-
                 registry.addInterceptor(new LoginHandlerInterceptor()).addPathPatterns("/**")
                         .excludePathPatterns("/index","/","/login","/static/**","/webjars/**","/asserts/**");
+                registry.addInterceptor(new PermissionInterceptor()).addPathPatterns("/**");
             }
+
 
             /**
              * 添加静态资源文件，外部可以直接访问地址
