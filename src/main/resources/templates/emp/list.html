@@ -74,13 +74,16 @@
                                      <th th:text="${#dates.format(emp.birth, 'yyyy-MM-dd HH:mm:ss')}"></th>
                                      <td>
                                      <a class="btn btn-sm btn-primary" th:href="@{/emp/}+${emp.id}">编辑</a>
-                                     <button  class="btn btn-sm btn-danger deleteBtn">删除</button>
+                                     <button  th:attr="del_uri=@{/emp/}+${emp.id}"  class="btn btn-sm btn-danger deleteBtn">删除</button>
                                      </td>
                                  </tr>
                             </body>
 						</table>
 					</div>
 				</main>
+				<form id="delEmpForm" method="post">
+                    <input type="hidden" name="_method" value="delete"/>
+                </form>
 			</div>
 		</div>
 
@@ -96,39 +99,13 @@
 		<script>
 			feather.replace()
 		</script>
-
-		<!-- Graphs -->
-		<script type="text/javascript" th:src="@{asserts/js/Chart.min.js}"></script>
 		<script>
-			var ctx = document.getElementById("myChart");
-			var myChart = new Chart(ctx, {
-				type: 'line',
-				data: {
-					labels: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
-					datasets: [{
-						data: [15339, 21345, 18483, 24003, 23489, 24092, 12034],
-						lineTension: 0,
-						backgroundColor: 'transparent',
-						borderColor: '#007bff',
-						borderWidth: 4,
-						pointBackgroundColor: '#007bff'
-					}]
-				},
-				options: {
-					scales: {
-						yAxes: [{
-							ticks: {
-								beginAtZero: false
-							}
-						}]
-					},
-					legend: {
-						display: false,
-					}
-				}
-			});
-		</script>
-
+            $(".deleteBtn").click(function(){
+            //给form标签绑定action的值
+            $("#delEmpForm").attr("action",$(this).attr("del_uri")).submit();
+            return false;
+            });
+        </script>
 	</body>
 
 </html>

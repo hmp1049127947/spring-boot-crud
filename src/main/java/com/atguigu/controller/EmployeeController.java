@@ -7,10 +7,7 @@ import com.atguigu.entities.Employee;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -78,6 +75,12 @@ public class EmployeeController {
     @PutMapping(value = "/emp")
     public String updateEmp(Employee employee) {
         employeeDao.save(employee);
+        return "redirect:/emps";
+    }
+
+    @DeleteMapping(value = "/emp/{id}")
+    public String delEmpById(@PathVariable("id")Integer id) {
+        employeeDao.delete(id);
         return "redirect:/emps";
     }
 }
